@@ -1,5 +1,6 @@
 import 'package:healthcare/Record/record_list.dart';
 import 'package:flutter/material.dart';
+import 'package:healthcare/mainscreen/newfeed.dart';
 // import 'package:google_fonts/google_fonts.dart';
 
 class SignupDone extends StatelessWidget {
@@ -62,7 +63,7 @@ class To_SignupDoneState extends State<PassSignup> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => ToRecordList()),// desination
+                    MaterialPageRoute(builder: (context) => HomeScreen()),// desination
                   );
                 },
                 style: ElevatedButton.styleFrom(

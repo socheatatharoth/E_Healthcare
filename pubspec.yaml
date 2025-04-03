@@ -89,6 +89,10 @@ flutter:
     - assets/images/profile.png
     - assets/images/facebook.png
     - assets/images/google.png
+    - assets/images/feed1.png
+    - assets/images/feed2.png
+    - assets/images/feed3.png
+    - assets/images/feed4.png
 
   fonts:
     - family: Lato

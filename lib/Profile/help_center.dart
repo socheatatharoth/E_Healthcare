@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:healthcare/Profile/profile.dart';
+import 'profile.dart';
 import 'package:healthcare/Record/record_list.dart';
-import 'package:healthcare/mainscreen/detail.dart';
+import 'package:healthcare/Record/record_password.dart';
+import 'package:healthcare/mainscreen/booking.dart';
 import 'package:healthcare/mainscreen/newfeed.dart';
 
 
@@ -21,19 +22,22 @@ class _HelpCenterState extends State<HelpCenter> {
       _selectedIndex = index;
     });
     if (index == 0){
-      Navigator.push(
+      Navigator.pushAndRemoveUntil(
       context,
-      MaterialPageRoute(builder: (context) => HomeScreen()), // Navigate to Privacy page
+      MaterialPageRoute(builder: (context) => HomeScreen()),
+      (route) => false, // This removes all previous routes
     );
     }else if(index == 1){
-      Navigator.push(
+      Navigator.pushAndRemoveUntil(
       context,
-      MaterialPageRoute(builder: (context) => DoctorInfoScreen()), // Navigate to Privacy page
+      MaterialPageRoute(builder: (context) => BookingPage()),
+      (route) => false, // This removes all previous routes
     );
     }else if(index == 3){
-      Navigator.push(
+      Navigator.pushAndRemoveUntil(
       context,
-      MaterialPageRoute(builder: (context) => ToRecordList()), // Navigate to Privacy page
+      MaterialPageRoute(builder: (context) => RecordPassword()),
+      (route) => false, // This removes all previous routes
     );
     }else if (index == 4) { // Profile screen
     Navigator.pushAndRemoveUntil(

@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:healthcare/Profile/profile.dart';
+import 'package:healthcare/Record/record_list.dart';
+import 'package:healthcare/Record/record_password.dart';
+import 'booking.dart';
+
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
 
@@ -9,33 +14,65 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
 
-  static const List<Widget> _widgetOptions = <Widget>[
-    HomeScreen(),
-    PlaceholderWidget(title: 'Booking Screen'),
-    PlaceholderWidget(title: 'Appointment Screen'),
-    PlaceholderWidget(title: 'Record Screen'),
-    PlaceholderWidget(title: 'Profile Screen'),
+  final List<Widget> _widgetOptions = <Widget>[
+    const HomeScreen(),
+    BookingPage(),
+    const PlaceholderWidget(title: 'Appointment Screen'),
+    const PlaceholderWidget(title: 'Record Screen'),
+    const PlaceholderWidget(title: 'Profile Screen'),
   ];
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
+    if (index == 0){
+      Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => HomeScreen()),
+      (route) => false, // This removes all previous routes
+    );
+    }else if(index == 1){
+      Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => BookingPage()),
+      (route) => false, // This removes all previous routes
+    );
+    }else if(index == 3){
+      Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => RecordPassword()),
+      (route) => false, // This removes all previous routes
+    );
+    }else if (index == 4) { // Profile screen
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => Profile()),
+      (route) => false, // This removes all previous routes
+    );
+  } else {
+    setState(() {
+      _selectedIndex = index;
+    });
   }
-
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(child: _widgetOptions.elementAt(_selectedIndex)),
-
       bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.blue,
-        unselectedItemColor: Colors.grey,
-        onTap: _onItemTapped,
+          type: BottomNavigationBarType.fixed, 
+          selectedLabelStyle: TextStyle(fontSize: 12), // Adjust text size
+          unselectedLabelStyle: TextStyle(fontSize: 10),// Ensures all icons are shown
+          currentIndex: _selectedIndex, // Active tab index
+          selectedItemColor: Colors.blue, // Color of selected item
+          unselectedItemColor: Colors.grey, // Color of unselected items
+          onTap: _onItemTapped,
         items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
           BottomNavigationBarItem(
             icon: Icon(Icons.menu_book),
             label: 'Booking',
@@ -52,7 +89,9 @@ class _MainScreenState extends State<MainScreen> {
             icon: Icon(Icons.people_alt),
             label: 'Profile',
           ),
+         
         ],
+        
       ),
     );
   }
@@ -77,6 +116,41 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  int _selectedIndex = 0;
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+    if (index == 0){
+      Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => HomeScreen()),
+      (route) => false, // This removes all previous routes
+    );
+    }else if(index == 1){
+      Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => BookingPage()),
+      (route) => false, // This removes all previous routes
+    );
+    }else if(index == 3){
+      Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => ToRecordList()),
+      (route) => false, // This removes all previous routes
+    );
+    }else if (index == 4) { // Profile screen
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => Profile()),
+      (route) => false, // This removes all previous routes
+    );
+  } else {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+  }
   TextEditingController _searchController = TextEditingController();
 
   @override
@@ -102,110 +176,154 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  const Icon(Icons.location_on, color: Colors.black54),
-                  const SizedBox(width: 5),
-                  const Text(
-                    'Phnom Penh, Cambodia',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-                  ),
-                  const Spacer(),
-                  IconButton(
-                    icon: const Icon(
-                      Icons.notifications,
-                      color: Colors.black54,
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          return SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: constraints.maxHeight),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        const Icon(Icons.location_on, color: Colors.black54),
+                        const SizedBox(width: 5),
+                        const Text(
+                          'Phnom Penh, Cambodia',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        const Spacer(),
+                        IconButton(
+                          icon: const Icon(
+                            Icons.notifications,
+                            color: Colors.black54,
+                          ),
+                          onPressed: () {},
+                        ),
+                      ],
                     ),
-                    onPressed: () {},
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10),
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.blue.shade100,
-                  borderRadius: BorderRadius.circular(20),
+                    const SizedBox(height: 10),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.blue.shade100,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: TextField(
+                        controller: _searchController,
+                        decoration: const InputDecoration(
+                          prefixIcon: Icon(Icons.search, color: Colors.black54),
+                          hintText: 'Search doctor...',
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.symmetric(vertical: 14),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    _buildBanner(),
+                    const SizedBox(height: 20),
+                    const CategoriesSection(),
+                    const SizedBox(height: 20),
+                    _buildNewsFeedSection(),
+                    const SizedBox(height: 20), // Extra space at bottom
+                  ],
                 ),
-                child: TextField(
-                  controller: _searchController,
-                  decoration: const InputDecoration(
-                    prefixIcon: Icon(Icons.search, color: Colors.black54),
-                    hintText: 'Search doctor...',
-                    border: InputBorder.none,
-                    contentPadding: EdgeInsets.symmetric(vertical: 14),
-                  ),
-                ),
               ),
-              const SizedBox(height: 20),
-              _buildBanner(),
-              const SizedBox(height: 20),
-              const CategoriesSection(),
-              const SizedBox(height: 20),
-              _buildNewsFeedSection(), // Added news feed section
-            ],
+            ),
+          );
+        },
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed, 
+          selectedLabelStyle: TextStyle(fontSize: 12), // Adjust text size
+          unselectedLabelStyle: TextStyle(fontSize: 10),// Ensures all icons are shown
+          currentIndex: _selectedIndex, // Active tab index
+          selectedItemColor: Colors.blue, // Color of selected item
+          unselectedItemColor: Colors.grey, // Color of unselected items
+          onTap: _onItemTapped,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
           ),
-        ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.menu_book),
+            label: 'Booking',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.calendar_month_sharp),
+            label: 'Appointment',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.note_alt_outlined),
+            label: 'Record',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.people_alt),
+            label: 'Profile',
+          ),
+         
+        ],
+        
       ),
     );
   }
 
   Widget _buildBanner() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: Container(
-        width: double.infinity,
-        height: 200,
-        decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 179, 212, 239),
-          borderRadius: BorderRadius.circular(15),
-        ),
-        child: Row(
-          children: [
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 20.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      'Looking for\nSpecialist Doctors?',
-                      style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                        height: 1.2,
-                      ),
+    return Container(
+      width: double.infinity,
+      height: 180,
+      decoration: BoxDecoration(
+        color: const Color.fromARGB(255, 179, 212, 239),
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 20.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    'Looking for\nSpecialist Doctors?',
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      height: 1.2,
                     ),
-                    const SizedBox(height: 8),
-                    Text(
-                      'Schedule an appointment\nwith our top doctors.',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.grey.shade700,
-                        height: 1.4,
-                      ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    'Schedule an appointment\nwith our top doctors.',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.grey.shade700,
+                      height: 1.4,
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
-            Image.asset(
-              'assets/images/add.png',
-              width: 150,
-              height: 150,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(right: 20.0),
+            child: Image.asset(
+              'images/add.png',
+              width: 120,
+              height: 120,
               fit: BoxFit.contain,
               errorBuilder: (context, error, stackTrace) {
                 return const Icon(Icons.error, color: Colors.red);
               },
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -213,26 +331,26 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _buildNewsFeedSection() {
     final List<Map<String, String>> newsArticles = [
       {
-        'image': 'assets/images/feed1.png',
+        'image': 'images/feed1.png',
         'title': 'Mpox is a viral disease causing fever, rash, and swelling.',
         'category': 'E-Healthcare',
         'time': '10min ago',
       },
       {
-        'image': 'assets/images/feed2.png',
+        'image': 'images/feed2.png',
         'title': 'A mosquito-borne virus causing fever and severe symptoms.',
         'category': 'E-Healthcare',
         'time': '10H ago',
       },
       {
-        'image': 'assets/images/feed3.png',
+        'image': 'images/feed3.png',
         'title':
             'HIV weakens immunity and spreads through blood, sex, and breast milk.',
         'category': 'E-Healthcare',
         'time': '10H ago',
       },
       {
-        'image': 'assets/images/feed4.png',
+        'image': 'images/feed4.png',
         'title':
             'Cambodia Maintains COVID-19 Stability Amid Ongoing Precautions',
         'category': 'E-Healthcare',
@@ -332,7 +450,6 @@ class CategoriesSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Define a list of background colors for categories
     final List<Color> categoryColors = [
       Colors.blue.shade100,
       Colors.green.shade100,
@@ -344,7 +461,6 @@ class CategoriesSection extends StatelessWidget {
       Colors.cyan.shade100,
     ];
 
-    // Define category data
     final List<Map<String, String>> categories = [
       {'title': 'Depression', 'image': 'assets/images/icon2.png'},
       {'title': 'Medical', 'image': 'assets/images/icon1.png'},
@@ -379,19 +495,22 @@ class CategoriesSection extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 10),
-        GridView.count(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          crossAxisCount: 4,
-          childAspectRatio: 0.8, // Adjust the height and width proportion
-          padding: const EdgeInsets.symmetric(horizontal: 8),
-          children: List.generate(categories.length, (index) {
-            return _buildCategoryItem(
-              title: categories[index]['title']!,
-              imagePath: categories[index]['image']!,
-              bgColor: categoryColors[index % categoryColors.length],
-            );
-          }),
+        SizedBox(
+          height: 200, // Fixed height for the grid
+          child: GridView.count(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            crossAxisCount: 4,
+            childAspectRatio: 0.8,
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            children: List.generate(categories.length, (index) {
+              return _buildCategoryItem(
+                title: categories[index]['title']!,
+                imagePath: categories[index]['image']!,
+                bgColor: categoryColors[index % categoryColors.length],
+              );
+            }),
+          ),
         ),
       ],
     );
@@ -403,7 +522,7 @@ class CategoriesSection extends StatelessWidget {
     required Color bgColor,
   }) {
     return Card(
-      color: bgColor, // Assign background color dynamically
+      color: bgColor,
       elevation: 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: Column(
@@ -411,9 +530,9 @@ class CategoriesSection extends StatelessWidget {
         children: [
           Image.asset(
             imagePath,
-            width: 100, // ✅ Increased width for better UI
-            height: 100, // ✅ Increased height for better UI
-            fit: BoxFit.contain, // ✅ Ensures full image visibility
+            width: 40,
+            height: 40,
+            fit: BoxFit.contain,
             errorBuilder: (context, error, stackTrace) {
               return const Icon(Icons.error, color: Colors.red);
             },

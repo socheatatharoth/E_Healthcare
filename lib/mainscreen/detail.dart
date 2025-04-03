@@ -1,17 +1,56 @@
 import 'package:flutter/material.dart';
+import 'package:healthcare/Profile/profile.dart';
+import 'package:healthcare/Record/record_list.dart';
+import 'package:healthcare/Record/record_password.dart';
+import 'booking.dart';
+import 'newfeed.dart';
+import 'appointmentdate.dart';
 
 class DoctorInfoScreen extends StatefulWidget {
+  final Map<String, dynamic> doctor;
+
+  const DoctorInfoScreen({Key? key, required this.doctor}) : super(key: key);
+
   @override
   _DoctorInfoScreenState createState() => _DoctorInfoScreenState();
 }
 
 class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 1;
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
+    if (index == 0){
+      Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => HomeScreen()),
+      (route) => false, // This removes all previous routes
+    );
+    }else if(index == 1){
+      Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => BookingPage()),
+      (route) => false, // This removes all previous routes
+    );
+    }else if(index == 3){
+      Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => RecordPassword()),
+      (route) => false, // This removes all previous routes
+    );
+    }else if (index == 4) { // Profile screen
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => Profile()),
+      (route) => false, // This removes all previous routes
+    );
+  } else {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
   }
 
   Widget _buildStatColumn(
@@ -68,7 +107,7 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
                     ClipRRect(
                       borderRadius: BorderRadius.circular(10.0),
                       child: Image.asset(
-                        'assets/images/doctor1.png',
+                        widget.doctor['image'],
                         width: 90,
                         height: 110,
                         fit: BoxFit.cover,
@@ -82,7 +121,7 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Dr. Thin Panha',
+                                widget.doctor['name'],
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
@@ -96,7 +135,7 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
                               ),
                               SizedBox(height: 4),
                               Text(
-                                'Cardiologist',
+                                widget.doctor['specialty'],
                                 style: TextStyle(
                                   fontSize: 14,
                                   color: Colors.white,
@@ -112,7 +151,7 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
                                   ),
                                   SizedBox(width: 6.0),
                                   Text(
-                                    'Phnom Penh',
+                                    widget.doctor['location'] ?? 'Phnom Penh',
                                     style: TextStyle(
                                       fontSize: 14,
                                       color: Colors.white,
@@ -125,20 +164,20 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
                           Positioned(
                             right: 0,
                             top: 0,
-                            child: GestureDetector(
-                              onTap: () {
+                            child: IconButton(
+                              icon: Icon(
+                                Icons.chevron_right,
+                                color: Colors.white,
+                                size: 24,
+                              ),
+                              onPressed: () {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => DoctorDetailsPage(),
+                                    builder: (context) => AppointmentScheduler(doctor: widget.doctor),
                                   ),
                                 );
                               },
-                              child: Icon(
-                                Icons.chevron_right,
-                                color: Colors.white,
-                                size: 24, // Smaller size
-                              ),
                             ),
                           ),
                         ],
@@ -156,13 +195,25 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
               children: [
                 _buildStatColumn(
                   Icons.people_alt,
-                  '2,000+',
+                  widget.doctor['patients'] ?? '2,000+',
                   'patients',
                   iconColor: Colors.blue,
                 ),
-                _buildStatColumn(Icons.work_history, '10+', 'experience'),
-                _buildStatColumn(Icons.star, '5', 'rating'),
-                _buildStatColumn(Icons.reviews, '1,872', 'reviews'),
+                _buildStatColumn(
+                  Icons.work_history,
+                  widget.doctor['experience'] ?? '10+',
+                  'experience',
+                ),
+                _buildStatColumn(
+                  Icons.star,
+                  widget.doctor['rating'].toString(),
+                  'rating',
+                ),
+                _buildStatColumn(
+                  Icons.reviews,
+                  widget.doctor['reviews'].toString(),
+                  'reviews',
+                ),
               ],
             ),
 
@@ -179,7 +230,8 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
                   ),
                   SizedBox(height: 12),
                   Text(
-                    'Experienced and compassionate doctor providing quality medical care, diagnosis, and treatment for various health conditions.',
+                    widget.doctor['about'] ??
+                        'Experienced and compassionate doctor providing quality medical care, diagnosis, and treatment for various health conditions.',
                     style: TextStyle(
                       fontSize: 14,
                       color: Colors.grey[700],
@@ -203,7 +255,8 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
                   ),
                   SizedBox(height: 12),
                   Text(
-                    'Monday-Friday, 08:00 AM - 18:00 PM',
+                    widget.doctor['workingTime'] ??
+                        'Monday-Friday, 08:00 AM - 18:00 PM',
                     style: TextStyle(
                       fontSize: 14,
                       color: Colors.grey[700],
@@ -251,7 +304,7 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
                         ),
                         SizedBox(height: 8),
                         Text(
-                          'Dr. Thin Panha is a true professional who genuinely cares about his patients. I highly recommend Dr. Thin Panha to anyone seeking exceptional cardiac care.',
+                          '${widget.doctor['name']} is a true professional who genuinely cares about patients. I highly recommend to anyone seeking exceptional care.',
                           style: TextStyle(
                             color: Colors.grey[700],
                             height: 1.4,
@@ -268,14 +321,19 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.blue,
-        unselectedItemColor: Colors.grey,
-        onTap: _onItemTapped,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+     bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed, 
+          selectedLabelStyle: TextStyle(fontSize: 12), // Adjust text size
+          unselectedLabelStyle: TextStyle(fontSize: 10),// Ensures all icons are shown
+          currentIndex: _selectedIndex, // Active tab index
+          selectedItemColor: Colors.blue, // Color of selected item
+          unselectedItemColor: Colors.grey, // Color of unselected items
+          onTap: _onItemTapped,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
           BottomNavigationBarItem(
             icon: Icon(Icons.menu_book),
             label: 'Booking',
@@ -292,18 +350,10 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
             icon: Icon(Icons.people_alt),
             label: 'Profile',
           ),
+         
         ],
+        
       ),
-    );
-  }
-}
-
-class DoctorDetailsPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Doctor Details')),
-      body: Center(child: Text('Detailed information about Dr. Thin Panha')),
     );
   }
 }

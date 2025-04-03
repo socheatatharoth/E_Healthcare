@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:healthcare/Profile/profile.dart';
-import 'package:healthcare/mainscreen/detail.dart';
+import '/Profile/profile.dart';
+import 'package:healthcare/mainscreen/booking.dart';
 import 'package:healthcare/mainscreen/newfeed.dart';
 import 'record_password.dart';
 
@@ -50,13 +50,13 @@ class _ToRecordListState extends State<ToRecordList> {
     }else if(index == 1){
       Navigator.pushAndRemoveUntil(
       context,
-      MaterialPageRoute(builder: (context) => DoctorInfoScreen()),
+      MaterialPageRoute(builder: (context) => BookingPage()),
       (route) => false, // This removes all previous routes
     );
     }else if(index == 3){
       Navigator.pushAndRemoveUntil(
       context,
-      MaterialPageRoute(builder: (context) => ToRecordList()),
+      MaterialPageRoute(builder: (context) => RecordPassword()),
       (route) => false, // This removes all previous routes
     );
     }else if (index == 4) { // Profile screen

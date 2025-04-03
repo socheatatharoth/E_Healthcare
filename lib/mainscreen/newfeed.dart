@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'booking.dart';
+
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
 
@@ -9,12 +11,12 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
 
-  static const List<Widget> _widgetOptions = <Widget>[
-    HomeScreen(),
-    PlaceholderWidget(title: 'Booking Screen'),
-    PlaceholderWidget(title: 'Appointment Screen'),
-    PlaceholderWidget(title: 'Record Screen'),
-    PlaceholderWidget(title: 'Profile Screen'),
+  final List<Widget> _widgetOptions = <Widget>[
+    const HomeScreen(),
+    BookingPage(),
+    const PlaceholderWidget(title: 'Appointment Screen'),
+    const PlaceholderWidget(title: 'Record Screen'),
+    const PlaceholderWidget(title: 'Profile Screen'),
   ];
 
   void _onItemTapped(int index) {
@@ -27,7 +29,6 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(child: _widgetOptions.elementAt(_selectedIndex)),
-
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         currentIndex: _selectedIndex,
@@ -102,110 +103,121 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  const Icon(Icons.location_on, color: Colors.black54),
-                  const SizedBox(width: 5),
-                  const Text(
-                    'Phnom Penh, Cambodia',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-                  ),
-                  const Spacer(),
-                  IconButton(
-                    icon: const Icon(
-                      Icons.notifications,
-                      color: Colors.black54,
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          return SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: constraints.maxHeight),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        const Icon(Icons.location_on, color: Colors.black54),
+                        const SizedBox(width: 5),
+                        const Text(
+                          'Phnom Penh, Cambodia',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        const Spacer(),
+                        IconButton(
+                          icon: const Icon(
+                            Icons.notifications,
+                            color: Colors.black54,
+                          ),
+                          onPressed: () {},
+                        ),
+                      ],
                     ),
-                    onPressed: () {},
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10),
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.blue.shade100,
-                  borderRadius: BorderRadius.circular(20),
+                    const SizedBox(height: 10),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.blue.shade100,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: TextField(
+                        controller: _searchController,
+                        decoration: const InputDecoration(
+                          prefixIcon: Icon(Icons.search, color: Colors.black54),
+                          hintText: 'Search doctor...',
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.symmetric(vertical: 14),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    _buildBanner(),
+                    const SizedBox(height: 20),
+                    const CategoriesSection(),
+                    const SizedBox(height: 20),
+                    _buildNewsFeedSection(),
+                    const SizedBox(height: 20), // Extra space at bottom
+                  ],
                 ),
-                child: TextField(
-                  controller: _searchController,
-                  decoration: const InputDecoration(
-                    prefixIcon: Icon(Icons.search, color: Colors.black54),
-                    hintText: 'Search doctor...',
-                    border: InputBorder.none,
-                    contentPadding: EdgeInsets.symmetric(vertical: 14),
-                  ),
-                ),
               ),
-              const SizedBox(height: 20),
-              _buildBanner(),
-              const SizedBox(height: 20),
-              const CategoriesSection(),
-              const SizedBox(height: 20),
-              _buildNewsFeedSection(), // Added news feed section
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
     );
   }
 
   Widget _buildBanner() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: Container(
-        width: double.infinity,
-        height: 200,
-        decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 179, 212, 239),
-          borderRadius: BorderRadius.circular(15),
-        ),
-        child: Row(
-          children: [
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 20.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      'Looking for\nSpecialist Doctors?',
-                      style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                        height: 1.2,
-                      ),
+    return Container(
+      width: double.infinity,
+      height: 180,
+      decoration: BoxDecoration(
+        color: const Color.fromARGB(255, 179, 212, 239),
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 20.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    'Looking for\nSpecialist Doctors?',
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      height: 1.2,
                     ),
-                    const SizedBox(height: 8),
-                    Text(
-                      'Schedule an appointment\nwith our top doctors.',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.grey.shade700,
-                        height: 1.4,
-                      ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    'Schedule an appointment\nwith our top doctors.',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.grey.shade700,
+                      height: 1.4,
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
-            Image.asset(
+          ),
+          Padding(
+            padding: const EdgeInsets.only(right: 20.0),
+            child: Image.asset(
               'assets/images/add.png',
-              width: 150,
-              height: 150,
+              width: 120,
+              height: 120,
               fit: BoxFit.contain,
               errorBuilder: (context, error, stackTrace) {
                 return const Icon(Icons.error, color: Colors.red);
               },
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -332,7 +344,6 @@ class CategoriesSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Define a list of background colors for categories
     final List<Color> categoryColors = [
       Colors.blue.shade100,
       Colors.green.shade100,
@@ -344,7 +355,6 @@ class CategoriesSection extends StatelessWidget {
       Colors.cyan.shade100,
     ];
 
-    // Define category data
     final List<Map<String, String>> categories = [
       {'title': 'Depression', 'image': 'assets/images/icon2.png'},
       {'title': 'Medical', 'image': 'assets/images/icon1.png'},
@@ -379,19 +389,22 @@ class CategoriesSection extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 10),
-        GridView.count(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          crossAxisCount: 4,
-          childAspectRatio: 0.8, // Adjust the height and width proportion
-          padding: const EdgeInsets.symmetric(horizontal: 8),
-          children: List.generate(categories.length, (index) {
-            return _buildCategoryItem(
-              title: categories[index]['title']!,
-              imagePath: categories[index]['image']!,
-              bgColor: categoryColors[index % categoryColors.length],
-            );
-          }),
+        SizedBox(
+          height: 200, // Fixed height for the grid
+          child: GridView.count(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            crossAxisCount: 4,
+            childAspectRatio: 0.8,
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            children: List.generate(categories.length, (index) {
+              return _buildCategoryItem(
+                title: categories[index]['title']!,
+                imagePath: categories[index]['image']!,
+                bgColor: categoryColors[index % categoryColors.length],
+              );
+            }),
+          ),
         ),
       ],
     );
@@ -403,7 +416,7 @@ class CategoriesSection extends StatelessWidget {
     required Color bgColor,
   }) {
     return Card(
-      color: bgColor, // Assign background color dynamically
+      color: bgColor,
       elevation: 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: Column(
@@ -411,9 +424,9 @@ class CategoriesSection extends StatelessWidget {
         children: [
           Image.asset(
             imagePath,
-            width: 100, // ✅ Increased width for better UI
-            height: 100, // ✅ Increased height for better UI
-            fit: BoxFit.contain, // ✅ Ensures full image visibility
+            width: 40,
+            height: 40,
+            fit: BoxFit.contain,
             errorBuilder: (context, error, stackTrace) {
               return const Icon(Icons.error, color: Colors.red);
             },

@@ -85,7 +85,10 @@ flutter:
     - assets/images/google-logo.png
     - assets/images/record_image.png
     - assets/images/GetStart_image.png
-
+    - assets/images/feed1.png
+    - assets/images/feed2.png
+    - assets/images/feed3.png
+    - assets/images/feed4.png
 
   fonts:
     - family: Lato

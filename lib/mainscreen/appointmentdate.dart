@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class AppointmentScheduler extends StatefulWidget {
+  final Map<String, dynamic> doctor;
+
+  const AppointmentScheduler({Key? key, required this.doctor})
+    : super(key: key);
+
   @override
   _AppointmentSchedulerState createState() => _AppointmentSchedulerState();
 }
@@ -12,9 +17,9 @@ class _AppointmentSchedulerState extends State<AppointmentScheduler> {
   String fullName = '';
   String age = '';
   String? selectedGender;
-  DateTime _currentMonth = DateTime(2025, 1, 1);
+  DateTime _currentMonth = DateTime.now();
   DateTime? _selectedDate;
-  int _selectedIndex = 2; // Default to Appointment tab
+  int _selectedIndex = 2;
 
   final List<String> genders = ['Male', 'Female', 'Other'];
   final List<String> monthNames = DateFormat().dateSymbols.MONTHS;
@@ -23,9 +28,6 @@ class _AppointmentSchedulerState extends State<AppointmentScheduler> {
     setState(() {
       _selectedIndex = index;
     });
-    // Add navigation logic here based on the selected index
-    // For example:
-    // if (index == 0) Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
   }
 
   List<DateTime> getDaysInMonth() {
@@ -41,19 +43,17 @@ class _AppointmentSchedulerState extends State<AppointmentScheduler> {
   Widget build(BuildContext context) {
     final daysInMonth = getDaysInMonth();
     final firstDay = daysInMonth.first;
-    final weekdayOffset = firstDay.weekday % 7; // Sunday = 0
+    final weekdayOffset = firstDay.weekday % 7;
 
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 86, 118, 198),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () {
-            Navigator.pop(context); // Goes back to the previous screen
-          },
+          onPressed: () => Navigator.pop(context),
         ),
-        title: const Text(
-          'E-HealthCare',
+        title: Text(
+          'Book with ${widget.doctor['name']}',
           style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
@@ -63,9 +63,59 @@ class _AppointmentSchedulerState extends State<AppointmentScheduler> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Selecting Date Text
+            // Doctor Info Card
+            Card(
+              elevation: 2,
+              margin: EdgeInsets.only(bottom: 20),
+              child: Padding(
+                padding: EdgeInsets.all(12),
+                child: Row(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: Image.asset(
+                        widget.doctor['image'],
+                        width: 60,
+                        height: 80,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    SizedBox(width: 12),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            widget.doctor['name'],
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            ),
+                          ),
+                          Text(
+                            widget.doctor['specialty'],
+                            style: TextStyle(color: Colors.grey[600]),
+                          ),
+                          Row(
+                            children: [
+                              Icon(Icons.star, color: Colors.amber, size: 16),
+                              SizedBox(width: 4),
+                              Text(
+                                '${widget.doctor['rating']} (${widget.doctor['reviews']} reviews)',
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
+            // Date Selection
             Text(
-              'Selecting Date',
+              'Select Date',
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -74,7 +124,6 @@ class _AppointmentSchedulerState extends State<AppointmentScheduler> {
             ),
             SizedBox(height: 10),
 
-            // Calendar Container
             Container(
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -91,7 +140,6 @@ class _AppointmentSchedulerState extends State<AppointmentScheduler> {
               padding: EdgeInsets.all(16),
               child: Column(
                 children: [
-                  // Month Selector
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -132,29 +180,6 @@ class _AppointmentSchedulerState extends State<AppointmentScheduler> {
                   ),
                   SizedBox(height: 16),
 
-                  // Month Dropdown (alternative to arrows)
-                  DropdownButton<int>(
-                    value: _currentMonth.month,
-                    items:
-                        List.generate(12, (index) => index + 1)
-                            .map(
-                              (month) => DropdownMenuItem<int>(
-                                value: month,
-                                child: Text(monthNames[month - 1]),
-                              ),
-                            )
-                            .toList(),
-                    onChanged: (month) {
-                      if (month != null) {
-                        setState(() {
-                          _currentMonth = DateTime(2025, month, 1);
-                        });
-                      }
-                    },
-                  ),
-                  SizedBox(height: 16),
-
-                  // Weekday Headers
                   GridView.count(
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
@@ -175,7 +200,6 @@ class _AppointmentSchedulerState extends State<AppointmentScheduler> {
                             .toList(),
                   ),
 
-                  // Calendar Days
                   GridView.builder(
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
@@ -186,7 +210,7 @@ class _AppointmentSchedulerState extends State<AppointmentScheduler> {
                     itemCount: weekdayOffset + daysInMonth.length,
                     itemBuilder: (context, index) {
                       if (index < weekdayOffset) {
-                        return Container(); // Empty space before 1st of month
+                        return Container();
                       }
                       final day = daysInMonth[index - weekdayOffset];
                       final isSelected =
@@ -229,7 +253,7 @@ class _AppointmentSchedulerState extends State<AppointmentScheduler> {
 
             // Time Selection
             Text(
-              'Select Hour',
+              'Select Time',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 10),
@@ -276,36 +300,26 @@ class _AppointmentSchedulerState extends State<AppointmentScheduler> {
             ),
             SizedBox(height: 10),
 
-            Text('Full Name'),
             TextField(
-              onChanged: (value) {
-                setState(() {
-                  fullName = value;
-                });
-              },
               decoration: InputDecoration(
-                hintText: 'Enter Full Name',
+                labelText: 'Full Name',
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
+              onChanged: (value) => fullName = value,
             ),
             SizedBox(height: 10),
 
-            Text('Age'),
             TextField(
               keyboardType: TextInputType.number,
-              onChanged: (value) {
-                setState(() {
-                  age = value;
-                });
-              },
               decoration: InputDecoration(
-                hintText: 'Enter Age',
+                labelText: 'Age',
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
+              onChanged: (value) => age = value,
             ),
             SizedBox(height: 10),
 
@@ -334,20 +348,15 @@ class _AppointmentSchedulerState extends State<AppointmentScheduler> {
             ),
             SizedBox(height: 20),
 
-            Text('Describe your problem'),
             TextField(
-              onChanged: (value) {
-                setState(() {
-                  problemDescription = value;
-                });
-              },
               decoration: InputDecoration(
-                hintText: 'Enter Your Problem Here',
+                labelText: 'Describe your problem',
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
               maxLines: 3,
+              onChanged: (value) => problemDescription = value,
             ),
             SizedBox(height: 20),
 
@@ -369,18 +378,41 @@ class _AppointmentSchedulerState extends State<AppointmentScheduler> {
                   final formattedDate = DateFormat(
                     'MMMM d, yyyy',
                   ).format(_selectedDate!);
-                  print(
-                    "Appointment Confirmed: $formattedDate at $selectedTime for $fullName ($age, $selectedGender)",
+                  showDialog(
+                    context: context,
+                    builder:
+                        (context) => AlertDialog(
+                          title: Text('Appointment Confirmed'),
+                          content: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Doctor: ${widget.doctor['name']}'),
+                              Text('Date: $formattedDate at $selectedTime'),
+                              Text(
+                                'Patient: $fullName ($age, $selectedGender)',
+                              ),
+                              SizedBox(height: 10),
+                              Text('We will send you a confirmation shortly.'),
+                            ],
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () => Navigator.pop(context),
+                              child: Text('OK'),
+                            ),
+                          ],
+                        ),
                   );
-
-                  // Here you would typically navigate to confirmation page
-                  // or show a success dialog
                 },
-                child: Text('Confirm'),
+                child: Text('Confirm Appointment'),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color.fromARGB(255, 142, 166, 227),
-                  foregroundColor: Colors.black,
+                  backgroundColor: Color.fromARGB(255, 86, 118, 198),
+                  foregroundColor: Colors.white,
                   padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                 ),
               ),
             ),

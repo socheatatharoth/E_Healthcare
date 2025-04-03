@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'detail.dart';
 
 class BookingPage extends StatefulWidget {
   @override
@@ -9,9 +10,9 @@ class _BookingPageState extends State<BookingPage> {
   final TextEditingController _searchController = TextEditingController();
   List<Map<String, dynamic>> allDoctors = [];
   List<Map<String, dynamic>> filteredDoctors = [];
-  Set<String> favoriteDoctors = {}; // Store favorite doctors
-  int _selectedIndex = 1; // Set default to "Booking" tab
-  String _selectedFilter = 'All'; // Track selected filter chip
+  Set<String> favoriteDoctors = {};
+  int _selectedIndex = 1;
+  String _selectedFilter = 'All';
 
   @override
   void initState() {
@@ -162,13 +163,6 @@ class _BookingPageState extends State<BookingPage> {
     });
   }
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-    // Navigate based on index (optional)
-  }
-
   void _updateFilter(String filter) {
     setState(() {
       _selectedFilter = filter;
@@ -207,26 +201,19 @@ class _BookingPageState extends State<BookingPage> {
             ),
             const SizedBox(height: 20),
             SingleChildScrollView(
-              scrollDirection: Axis.horizontal, // Enables horizontal scrolling
+              scrollDirection: Axis.horizontal,
               child: Row(
                 children: [
                   _buildFilterChip('All'),
                   SizedBox(width: 8),
-                  _buildFilterChip('General'),
-                  SizedBox(width: 8),
                   _buildFilterChip('Cardiologist'),
+                  SizedBox(width: 8),
+                  _buildFilterChip('Medical'),
                   SizedBox(width: 8),
                   _buildFilterChip('Surgery'),
                   SizedBox(width: 8),
                   _buildFilterChip('Nurse'),
-                  SizedBox(width: 8),
-                  _buildFilterChip('Body and Skin Issues'),
-                  SizedBox(width: 8),
-                  _buildFilterChip('Depression Issues'),
-                  SizedBox(width: 8),
-                  _buildFilterChip('Medical'),
-                  SizedBox(width: 8),
-                  _buildFilterChip('Pathology'),
+                  // Add other filter chips as needed
                 ],
               ),
             ),
@@ -239,69 +226,83 @@ class _BookingPageState extends State<BookingPage> {
                   bool isFavorite = favoriteDoctors.contains(doctor['name']);
 
                   return Card(
+                    margin: EdgeInsets.only(bottom: 16),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5),
+                      borderRadius: BorderRadius.circular(12),
                     ),
-                    child: Container(
-                      padding: EdgeInsets.all(10),
-                      height: 120,
-                      child: Row(
-                        children: [
-                          SizedBox(
-                            width: 90,
-                            height: 120,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(5),
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(12),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder:
+                                (context) => DoctorInfoScreen(doctor: doctor),
+                          ),
+                        );
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.all(12),
+                        child: Row(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
                               child: Image.asset(
                                 doctor['image'],
+                                width: 80,
+                                height: 100,
                                 fit: BoxFit.cover,
                               ),
                             ),
-                          ),
-                          SizedBox(width: 20),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  doctor['name'],
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16,
+                            SizedBox(width: 16),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    doctor['name'],
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
-                                ),
-                                Text(
-                                  doctor['specialty'],
-                                  style: TextStyle(color: Colors.grey[700]),
-                                ),
-                                Row(
-                                  children: [
-                                    Icon(
-                                      Icons.star,
-                                      color: Colors.orange,
-                                      size: 16,
+                                  SizedBox(height: 4),
+                                  Text(
+                                    doctor['specialty'],
+                                    style: TextStyle(
+                                      color: Colors.grey[600],
+                                      fontSize: 14,
                                     ),
-                                    SizedBox(width: 3),
-                                    Text(
-                                      "${doctor['rating']} (${doctor['reviews']} Reviews)",
-                                      style: TextStyle(fontSize: 14),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                                  ),
+                                  SizedBox(height: 8),
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons.star,
+                                        color: Colors.amber,
+                                        size: 16,
+                                      ),
+                                      SizedBox(width: 4),
+                                      Text(
+                                        '${doctor['rating']} (${doctor['reviews']} reviews)',
+                                        style: TextStyle(fontSize: 13),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          IconButton(
-                            icon: Icon(
-                              isFavorite
-                                  ? Icons.favorite
-                                  : Icons.favorite_border,
-                              color: isFavorite ? Colors.red : Colors.grey,
+                            IconButton(
+                              icon: Icon(
+                                isFavorite
+                                    ? Icons.favorite
+                                    : Icons.favorite_border,
+                                color: isFavorite ? Colors.red : Colors.grey,
+                              ),
+                              onPressed: () => _toggleFavorite(doctor['name']),
                             ),
-                            onPressed: () => _toggleFavorite(doctor['name']),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   );
@@ -311,32 +312,6 @@ class _BookingPageState extends State<BookingPage> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.blue,
-        unselectedItemColor: Colors.grey,
-        onTap: _onItemTapped,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.menu_book),
-            label: 'Booking',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.calendar_month_sharp),
-            label: 'Appointment',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.note_alt_outlined),
-            label: 'Record',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.people_alt),
-            label: 'Profile',
-          ),
-        ],
-      ),
     );
   }
 
@@ -344,20 +319,13 @@ class _BookingPageState extends State<BookingPage> {
     return ChoiceChip(
       label: Text(label),
       selected: _selectedFilter == label,
-      onSelected: (_) {
-        _updateFilter(label);
-      },
-      selectedColor: Colors.blue, // Color when chip is selected
-      backgroundColor: Colors.grey[300], // Color when chip is not selected
+      onSelected: (_) => _updateFilter(label),
+      selectedColor: Color.fromARGB(255, 86, 118, 198),
+      backgroundColor: Colors.grey[200],
       labelStyle: TextStyle(
-        color:
-            _selectedFilter == label
-                ? Colors.white
-                : Colors.black, // Change text color based on selection
+        color: _selectedFilter == label ? Colors.white : Colors.black,
       ),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20), // Set border radius here
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
     );
   }
 }

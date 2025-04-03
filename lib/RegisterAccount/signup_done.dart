@@ -1,6 +1,6 @@
 import 'package:healthcare/Record/record_list.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+// import 'package:google_fonts/google_fonts.dart';
 
 class SignupDone extends StatelessWidget {
   const SignupDone({super.key});
@@ -39,7 +39,7 @@ class To_SignupDoneState extends State<PassSignup> {
                 style: TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
-                  fontFamily: GoogleFonts.poppins().fontFamily,
+                  // fontFamily: GoogleFonts.poppins().fontFamily,
                   color: Colors.black,
                 ),
                 textAlign:TextAlign.center, // Ensures the text is centered if it spans multiple lines
@@ -62,7 +62,7 @@ class To_SignupDoneState extends State<PassSignup> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => RecodList()),// desination
+                    MaterialPageRoute(builder: (context) => ToRecordList()),// desination
                   );
                 },
                 style: ElevatedButton.styleFrom(
@@ -76,7 +76,7 @@ class To_SignupDoneState extends State<PassSignup> {
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
-                    fontFamily: GoogleFonts.poppins().fontFamily,
+                    // fontFamily: GoogleFonts.poppins().fontFamily,
                     color: Colors.white,
                   ),
                 ),

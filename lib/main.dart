@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:healthcare/Record/record_password.dart';
+import 'package:healthcare/mainscreen/newfeed.dart';
 import 'RegisterAccount/singup.dart';
 import 'ForgetPassword/forget_password.dart';
 import 'StartApp/GetStart.dart';
+import 'mainscreen/newfeed.dart';
 
 
 void main() {
@@ -29,6 +31,7 @@ class MyApp extends StatelessWidget {
       ),
       // home: const Infocontact(contactName: "IW"), // Fix: Pass a contact name
       // home: BookingPage(),
+      home:  MainScreen(), 
     );
   }
 }

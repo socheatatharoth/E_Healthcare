@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+// import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
 import 'package:healthcare/RegisterAccount/signup_pin.dart';
+import 'package:healthcare/StartApp/GetStart.dart';
+import 'package:intl/intl.dart';
+import 'package:healthcare/RegisterAccount/signup_done.dart';
+import 'package:healthcare/RegisterAccount/singup.dart';
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({super.key});
@@ -57,11 +60,11 @@ class __RegisterScreenState extends State<_RegisterScreen> {
       },
     );
     if (pickedDate != null) {
-      setState(() {
-        _dateController.text = DateFormat('yyyy-MM-dd').format(pickedDate);
-      });
+    setState(() {
+      _dateController.text = DateFormat('yyyy-MM-dd').format(pickedDate);
+    });
     }
-  }
+    }
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +74,14 @@ class __RegisterScreenState extends State<_RegisterScreen> {
           children: [
             IconButton(
               icon: Icon(Icons.arrow_back, color: Colors.black),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => GetStart(),
+                  ),
+                ); 
+              },
             ),
           ],
         ),
@@ -88,7 +98,7 @@ class __RegisterScreenState extends State<_RegisterScreen> {
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
-                    fontFamily: GoogleFonts.poppins().fontFamily,
+                    // fontFamily: GoogleFonts.poppins().fontFamily,
                     color: Colors.black,
                   ),
                 ),
@@ -99,7 +109,7 @@ class __RegisterScreenState extends State<_RegisterScreen> {
                   "Create an account to continue!",
                   style: TextStyle(
                     fontSize: 12,
-                    fontFamily: GoogleFonts.poppins().fontFamily,
+                    // fontFamily: GoogleFonts.poppins().fontFamily,
                     fontWeight: FontWeight.w600,
                     color: Colors.black,
                   ),
@@ -117,7 +127,7 @@ class __RegisterScreenState extends State<_RegisterScreen> {
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             labelStyle: TextStyle(
                               fontSize: 16,
-                              fontFamily: GoogleFonts.poppins().fontFamily,
+                              // fontFamily: GoogleFonts.poppins().fontFamily,
                               fontWeight: FontWeight.w600,
                               color: Colors.black,
                             ),
@@ -137,7 +147,7 @@ class __RegisterScreenState extends State<_RegisterScreen> {
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             labelStyle: TextStyle(
                               fontSize: 16,
-                              fontFamily: GoogleFonts.poppins().fontFamily,
+                              // fontFamily: GoogleFonts.poppins().fontFamily,
                               fontWeight: FontWeight.w600,
                               color: Colors.black,
                             ),
@@ -153,7 +163,7 @@ class __RegisterScreenState extends State<_RegisterScreen> {
                 "Gender:",
                 style: TextStyle(
                   fontSize: 12,
-                  fontFamily: GoogleFonts.poppins().fontFamily,
+                  // fontFamily: GoogleFonts.poppins().fontFamily,
                   fontWeight: FontWeight.w600,
                   color: Colors.black,
                 ),
@@ -171,7 +181,7 @@ class __RegisterScreenState extends State<_RegisterScreen> {
                   ),
                   Text(
                     "Male",
-                    style: GoogleFonts.poppins(
+                    style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w600,
                       color: Colors.black,
@@ -188,7 +198,7 @@ class __RegisterScreenState extends State<_RegisterScreen> {
                   ),
                   Text(
                     "Female",
-                    style: GoogleFonts.poppins(
+                    style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w600,
                       color: Colors.black,
@@ -206,7 +216,7 @@ class __RegisterScreenState extends State<_RegisterScreen> {
                       floatingLabelBehavior: FloatingLabelBehavior.always,
                       labelStyle: TextStyle(
                         fontSize: 16,
-                        fontFamily: GoogleFonts.poppins().fontFamily,
+                        // fontFamily: GoogleFonts.poppins().fontFamily,
                         fontWeight: FontWeight.w600,
                         color: Colors.black,
                       ),
@@ -237,7 +247,7 @@ class __RegisterScreenState extends State<_RegisterScreen> {
                       floatingLabelBehavior: FloatingLabelBehavior.always,
                       labelStyle: TextStyle(
                         fontSize: 16,
-                        fontFamily: GoogleFonts.poppins().fontFamily,
+                        // fontFamily: GoogleFonts.poppins().fontFamily,
                         fontWeight: FontWeight.w600,
                         color: Colors.black,
                       ),
@@ -255,7 +265,7 @@ class __RegisterScreenState extends State<_RegisterScreen> {
                         floatingLabelBehavior: FloatingLabelBehavior.always,
                         labelStyle: TextStyle(
                           fontSize: 16,
-                          fontFamily: GoogleFonts.poppins().fontFamily,
+                          // fontFamily: GoogleFonts.poppins().fontFamily,
                           fontWeight: FontWeight.w600,
                           color: Colors.black,
                         ),
@@ -273,7 +283,7 @@ class __RegisterScreenState extends State<_RegisterScreen> {
                       decoration: InputDecoration(
                         labelText: "Password :",
                         floatingLabelBehavior: FloatingLabelBehavior.always,
-                        labelStyle: GoogleFonts.poppins(
+                        labelStyle: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
                           color: Colors.black,
@@ -307,7 +317,7 @@ class __RegisterScreenState extends State<_RegisterScreen> {
                       decoration: InputDecoration(
                         labelText: "Confirm Password :",
                         floatingLabelBehavior: FloatingLabelBehavior.always,
-                        labelStyle: GoogleFonts.poppins(
+                        labelStyle: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
                           color: Colors.black,
@@ -352,7 +362,7 @@ class __RegisterScreenState extends State<_RegisterScreen> {
                           style: TextStyle(
                             color: Colors.grey,
                             fontSize: 12,
-                            fontFamily: GoogleFonts.poppins().fontFamily,
+                            // fontFamily: GoogleFonts.poppins().fontFamily,
                             fontWeight: FontWeight.w600,
                           ),
                           children: [
@@ -361,7 +371,7 @@ class __RegisterScreenState extends State<_RegisterScreen> {
                               style: TextStyle(
                                 color: Colors.blue,
                                 fontSize: 12,
-                                fontFamily: GoogleFonts.poppins().fontFamily,
+                                // fontFamily: GoogleFonts.poppins().fontFamily,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
@@ -392,7 +402,7 @@ class __RegisterScreenState extends State<_RegisterScreen> {
                 ),
                 child: Text(
                   'Create',
-                  style: GoogleFonts.poppins(
+                  style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
@@ -445,7 +455,7 @@ class __RegisterScreenState extends State<_RegisterScreen> {
                       style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w600,
-                        fontFamily: GoogleFonts.poppins().fontFamily,
+                        // fontFamily: GoogleFonts.poppins().fontFamily,
                         color: Colors.grey,
                       ),
                     ),

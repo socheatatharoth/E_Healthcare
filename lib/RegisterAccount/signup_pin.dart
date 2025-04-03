@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+// import 'package:google_fonts/google_fonts.dart';
 import 'package:healthcare/RegisterAccount/signup_done.dart';
 import 'package:healthcare/RegisterAccount/singup.dart';
 
@@ -199,7 +199,7 @@ class _To_SignupOTPState extends State<PassSignup> {
                           fontSize: 13,
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
-                          fontFamily: GoogleFonts.poppins().fontFamily,
+                          // fontFamily: GoogleFonts.poppins().fontFamily,
                         ),
                       ),
                     ),
@@ -211,7 +211,7 @@ class _To_SignupOTPState extends State<PassSignup> {
                           fontSize: 13,
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
-                          fontFamily: GoogleFonts.poppins().fontFamily,
+                          // fontFamily: GoogleFonts.poppins().fontFamily,
                         ),
                       ),
                     ),

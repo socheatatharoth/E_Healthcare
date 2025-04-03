@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:healthcare/Login/screen1.dart';
+// import 'package:google_fonts/google_fonts.dart';
 import 'forget_pass_OTP.dart';
 
 class ForgetPassword extends StatelessWidget {
@@ -31,12 +32,12 @@ class _To_ForgetPassword extends State<To_ForgetPassword> {
             IconButton(
               icon: Icon(Icons.arrow_back, color: Colors.black),
               onPressed: () {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (context) => const RegisterScreen(),
-                //   ),
-                // );
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Screen1(),
+                  ),
+                );
               },
             ),
           ],
@@ -77,7 +78,7 @@ class _To_ForgetPassword extends State<To_ForgetPassword> {
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 14,
-                      fontFamily: GoogleFonts.poppins().fontFamily,
+                      // fontFamily: GoogleFonts.poppins().fontFamily,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -89,7 +90,7 @@ class _To_ForgetPassword extends State<To_ForgetPassword> {
                       hintStyle: TextStyle(
                         color: Colors.grey,
                         fontSize: 12,
-                        fontFamily: GoogleFonts.poppins().fontFamily,
+                        // fontFamily: GoogleFonts.poppins().fontFamily,
                         fontWeight: FontWeight.w600,
                       ),
                       filled: true, 
@@ -101,7 +102,7 @@ class _To_ForgetPassword extends State<To_ForgetPassword> {
                     style: TextStyle(
                       height: 1,
                       fontSize: 16,
-                      fontFamily: GoogleFonts.poppins().fontFamily,
+                      // fontFamily: GoogleFonts.poppins().fontFamily,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -129,7 +130,7 @@ class _To_ForgetPassword extends State<To_ForgetPassword> {
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
-                    fontFamily: GoogleFonts.poppins().fontFamily,
+                    // fontFamily: GoogleFonts.poppins().fontFamily,
                     color: Colors.white,
                   ),
                 ),

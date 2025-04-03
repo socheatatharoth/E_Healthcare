@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:healthcare/Profile/profile.dart';
+import 'package:healthcare/mainscreen/detail.dart';
+import 'package:healthcare/mainscreen/newfeed.dart';
 import 'record_password.dart';
 
 class RecodList extends StatelessWidget {
@@ -33,12 +35,41 @@ class _ToRecordListState extends State<ToRecordList> {
       "hospital": "E-Healthcare Hospital",
     },
   ];
-  int _selectedIndex = 0; // Initial selected index
+    int _selectedIndex = 3; // Track selected tab index
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
+    if (index == 0){
+      Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => HomeScreen()),
+      (route) => false, // This removes all previous routes
+    );
+    }else if(index == 1){
+      Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => DoctorInfoScreen()),
+      (route) => false, // This removes all previous routes
+    );
+    }else if(index == 3){
+      Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => ToRecordList()),
+      (route) => false, // This removes all previous routes
+    );
+    }else if (index == 4) { // Profile screen
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => Profile()),
+      (route) => false, // This removes all previous routes
+    );
+  } else {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
   }
 
   @override
@@ -46,27 +77,13 @@ class _ToRecordListState extends State<ToRecordList> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromARGB(255, 86, 118, 198),
-        leading: Row(
-          children: [
-            IconButton(
-              icon: Icon(Icons.arrow_back, color: Colors.white),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const RecordPassword(),
-                  ),
-                );
-              },
-            ),
-          ],
-        ),
+        
         title: Text(
           "Record",
           style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
-            fontFamily: GoogleFonts.poppins().fontFamily,
+            // fontFamily: GoogleFonts.poppins().fontFamily,
             color: Colors.white,
           ),
         ),
@@ -82,7 +99,7 @@ class _ToRecordListState extends State<ToRecordList> {
               style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
-                fontFamily: GoogleFonts.poppins().fontFamily,
+                // fontFamily: GoogleFonts.poppins().fontFamily,
               ),
             ),
             Divider(color: Colors.grey, thickness: 2),
@@ -91,14 +108,19 @@ class _ToRecordListState extends State<ToRecordList> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed, // Ensures all icons are shown
-        currentIndex: _selectedIndex, // Active tab index
-        selectedItemColor: Colors.grey, // Color of selected item
-        unselectedItemColor: Colors.grey, // Color of unselected items
-        onTap: _onItemTapped,
+          bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed, 
+          selectedLabelStyle: TextStyle(fontSize: 12), // Adjust text size
+          unselectedLabelStyle: TextStyle(fontSize: 10),// Ensures all icons are shown
+          currentIndex: _selectedIndex, // Active tab index
+          selectedItemColor: Colors.blue, // Color of selected item
+          unselectedItemColor: Colors.grey, // Color of unselected items
+          onTap: _onItemTapped,
         items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
           BottomNavigationBarItem(
             icon: Icon(Icons.menu_book),
             label: 'Booking',
@@ -108,14 +130,16 @@ class _ToRecordListState extends State<ToRecordList> {
             label: 'Appointment',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.note_alt_outlined, color: Colors.blue),
+            icon: Icon(Icons.note_alt_outlined),
             label: 'Record',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.people_alt),
             label: 'Profile',
           ),
+         
         ],
+        
       ),
     );
   }
@@ -152,7 +176,7 @@ class _ToRecordListState extends State<ToRecordList> {
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
-                      fontFamily: GoogleFonts.poppins().fontFamily,
+                      // fontFamily: GoogleFonts.poppins().fontFamily,
                       color: Colors.black,
                     ),
                   ),
@@ -161,7 +185,7 @@ class _ToRecordListState extends State<ToRecordList> {
                     style: TextStyle(
                       fontSize: 13,
                       fontWeight: FontWeight.w600,
-                      fontFamily: GoogleFonts.poppins().fontFamily,
+                      // fontFamily: GoogleFonts.poppins().fontFamily,
                       color: Colors.grey[700],
                     ),
                   ),
@@ -183,7 +207,7 @@ class _ToRecordListState extends State<ToRecordList> {
                               style: TextStyle(
                                 fontSize: 10,
                                 fontWeight: FontWeight.w600,
-                                fontFamily: GoogleFonts.poppins().fontFamily,
+                                // fontFamily: GoogleFonts.poppins().fontFamily,
                                 color: Colors.grey,
                               ),
                             ),
@@ -203,7 +227,7 @@ class _ToRecordListState extends State<ToRecordList> {
                               style: TextStyle(
                                 fontSize: 10,
                                 fontWeight: FontWeight.w600,
-                                fontFamily: GoogleFonts.poppins().fontFamily,
+                                // fontFamily: GoogleFonts.poppins().fontFamily,
                                 color: Colors.grey,
                               ),
                             ),

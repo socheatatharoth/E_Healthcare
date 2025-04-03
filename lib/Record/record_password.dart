@@ -1,6 +1,6 @@
-import 'package:healthcare/Record/record_list.dart';
+import 'record_list.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+// import 'package:google_fonts/google_fonts.dart';
 
 class RecordPassword extends StatelessWidget {
   const RecordPassword({super.key});
@@ -31,7 +31,7 @@ class _PassRecordState extends State<PassRecord> {
         Future.delayed(Duration(milliseconds: 300), () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => RecodList()),
+            MaterialPageRoute(builder: (context) => ToRecordList()),
           );
         });
       }
@@ -97,7 +97,7 @@ class _PassRecordState extends State<PassRecord> {
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
-              fontFamily: GoogleFonts.poppins().fontFamily,
+              // fontFamily: GoogleFonts.poppins().fontFamily,
               color: Colors.blue,
             ),
           ),
@@ -106,7 +106,7 @@ class _PassRecordState extends State<PassRecord> {
             style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w600,
-              fontFamily: GoogleFonts.poppins().fontFamily,
+              // fontFamily: GoogleFonts.poppins().fontFamily,
               color: Colors.black,
             ),
           ),
@@ -116,7 +116,7 @@ class _PassRecordState extends State<PassRecord> {
             style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w600,
-              fontFamily: GoogleFonts.poppins().fontFamily,
+              // fontFamily: GoogleFonts.poppins().fontFamily,
               color: Colors.black,
             ),
           ),
@@ -190,7 +190,7 @@ class _PassRecordState extends State<PassRecord> {
                       fontSize: 14,
                       color: Colors.black,
                       fontWeight: FontWeight.w600,
-                      fontFamily: GoogleFonts.poppins().fontFamily,
+                      // fontFamily: GoogleFonts.poppins().fontFamily,
                     ),
                   ),
                 ),
@@ -203,7 +203,7 @@ class _PassRecordState extends State<PassRecord> {
                       fontSize: 14,
                       color: Colors.black,
                       fontWeight: FontWeight.w600,
-                      fontFamily: GoogleFonts.poppins().fontFamily,
+                      // fontFamily: GoogleFonts.poppins().fontFamily,
                     ),
                   ),
                 ),

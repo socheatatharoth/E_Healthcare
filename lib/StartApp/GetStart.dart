@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:healthcare/Login/screen1.dart';
 import 'package:healthcare/RegisterAccount/singup.dart';
 
 
@@ -42,7 +43,7 @@ class To_SignupDoneState extends State<Let_GetStart> {
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
-                    fontFamily: GoogleFonts.poppins().fontFamily,
+                    // fontFamily: GoogleFonts.poppins().fontFamily,
                     color: Colors.blue,
                   ),
                   textAlign:
@@ -57,7 +58,7 @@ class To_SignupDoneState extends State<Let_GetStart> {
                   style: TextStyle(
                     fontSize: 17,
                     fontWeight: FontWeight.w600,
-                    fontFamily: GoogleFonts.poppins().fontFamily,
+                    // fontFamily: GoogleFonts.poppins().fontFamily,
                     color: Colors.black,
                   ),
                   textAlign:
@@ -72,7 +73,7 @@ class To_SignupDoneState extends State<Let_GetStart> {
                   style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w100,
-                    fontFamily: GoogleFonts.poppins().fontFamily,
+                    // fontFamily: GoogleFonts.poppins().fontFamily,
                     color: Colors.black,
                   ),
                   textAlign:
@@ -85,10 +86,10 @@ class To_SignupDoneState extends State<Let_GetStart> {
                 width: 200,
                 child: ElevatedButton(
                   onPressed: () {
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(builder: (context) => RecodList()),// desination
-                    // );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Screen1()),// desination
+                    );
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color.fromARGB(255, 34, 96, 255),
@@ -101,7 +102,7 @@ class To_SignupDoneState extends State<Let_GetStart> {
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
-                      fontFamily: GoogleFonts.poppins().fontFamily,
+                      // fontFamily: GoogleFonts.poppins().fontFamily,
                       color: Colors.white,
                     ),
                   ),
@@ -127,7 +128,7 @@ class To_SignupDoneState extends State<Let_GetStart> {
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
-                      fontFamily: GoogleFonts.poppins().fontFamily,
+                      // fontFamily: GoogleFonts.poppins().fontFamily,
                       color: Color.fromARGB(255, 34, 96, 255),
                     ),
                   ),
@@ -155,7 +156,7 @@ class To_SignupDoneState extends State<Let_GetStart> {
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      fontFamily: GoogleFonts.poppins().fontFamily,
+                      // fontFamily: GoogleFonts.poppins().fontFamily,
                       color: Colors.white
                     ),
                   ),

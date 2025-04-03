@@ -1,24 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:healthcare/mainscreen/newfeed.dart';
 // import 'package:google_fonts/google_fonts.dart';
-import 'new_password.dart';
-import 'forget_password.dart';
 
-class OTPVerificationScreen extends StatelessWidget {
-  const OTPVerificationScreen({super.key});
+
+class ForOTP extends StatefulWidget {
+  const ForOTP({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false, home: ToForPassOTP());
-  }
+  State<ForOTP> createState() => _ForOTPState();
 }
 
-class ToForPassOTP extends StatefulWidget {
-  @override
-  _ToForPassOTPState createState() => _ToForPassOTPState();
-}
-
-class _ToForPassOTPState extends State<ToForPassOTP> {
-  final List<TextEditingController> _controllers = List.generate(
+class _ForOTPState extends State<ForOTP> {
+final List<TextEditingController> _controllers = List.generate(
     6,
     (index) => TextEditingController(),
   );
@@ -39,23 +32,14 @@ class _ToForPassOTPState extends State<ToForPassOTP> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Row(
-          children: [
-            IconButton(
+        leading: IconButton(
               icon: Icon(Icons.arrow_back, color: Colors.black),
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const ForgetPassword(),
-                  ),
-                );
+                Navigator.pop(context); 
               },
             ),
-          ],
-        ),
       ),
-      body: Padding(
+       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 30),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -118,63 +102,76 @@ class _ToForPassOTPState extends State<ToForPassOTP> {
                 );
               }),
             ),
-            SizedBox(height: 10),
-            Row(
-              children: [
-                Text(
-                  "Didn't receive code?",
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                    // fontFamily: GoogleFonts.poppins().fontFamily,
-                    color: Colors.grey,
-                  ),
-                ),
-                TextButton(
-                  onPressed: () {
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => const NewPassword(),
-                    //   ),
-                    // );
-                  },
-                  child: Text(
-                    "Resend",
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600,
-                      // fontFamily: GoogleFonts.poppins().fontFamily,
-                      color: Colors.blue,
+            SizedBox(height: 20,),
+            
+            Expanded(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 60, right: 30),
+                    child: Row(
+                      children: [
+                        Text(
+                          "Didn't receive code?",
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                            // fontFamily: GoogleFonts.poppins().fontFamily,
+                            color: Colors.grey,
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //     builder: (context) => const NewPassword(),
+                            //   ),
+                            // );
+                          },
+                          child: Text(
+                            "Resend",
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                              // fontFamily: GoogleFonts.poppins().fontFamily,
+                              color: Colors.blue,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                ),
-              ],
-            ),
-            SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const NewPassword()),
+                  SizedBox(height: 10),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => HomeScreen(),
+                      ),
                 );
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Color.fromARGB(255, 34, 96, 255),
-                padding: EdgeInsets.symmetric(horizontal: 80, vertical: 10),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(50),
-                ),
-              ),
-              child: Text(
-                'Verify',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color.fromARGB(255, 34, 96, 255),
+                      padding: EdgeInsets.symmetric(horizontal: 80, vertical: 10),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                    ),
+                    child: Text(
+                      'Verify',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
+            
           ],
         ),
       ),

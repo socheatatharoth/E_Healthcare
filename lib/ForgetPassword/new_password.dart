@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:healthcare/Login/screen1.dart';
+// import 'package:google_fonts/google_fonts.dart';
 import 'forget_password.dart';
 
 
@@ -46,7 +47,7 @@ class _ToNewPasswordState extends State<ToNewPassword> {
             Center(
               child: Text(
                 "Reset Password",
-                style: GoogleFonts.poppins(
+                style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                   color: Colors.black,
@@ -57,7 +58,7 @@ class _ToNewPasswordState extends State<ToNewPassword> {
             Text(
               'Enter Your New Pasword!',
               textAlign: TextAlign.center,
-              style: GoogleFonts.poppins(
+              style: TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w600,
                 color: Colors.grey,
@@ -73,7 +74,7 @@ class _ToNewPasswordState extends State<ToNewPassword> {
                     decoration: InputDecoration(
                       labelText: "Password :",
                       floatingLabelBehavior: FloatingLabelBehavior.always,
-                      labelStyle: GoogleFonts.poppins(
+                      labelStyle: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
                         color: Colors.black,
@@ -108,7 +109,7 @@ class _ToNewPasswordState extends State<ToNewPassword> {
                     decoration: InputDecoration(
                       labelText: "Confirm Password :",
                       floatingLabelBehavior: FloatingLabelBehavior.always,
-                      labelStyle: GoogleFonts.poppins(
+                      labelStyle: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
                         color: Colors.black,
@@ -137,12 +138,12 @@ class _ToNewPasswordState extends State<ToNewPassword> {
             Center(
               child: ElevatedButton(
                 onPressed: () {
-                  //  Navigator.push(
-                  //       context,
-                  //       MaterialPageRoute(
-                  //         builder: (context) => const NewPassword(),
-                  //       ),
-                  //     );
+                   Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Screen1(),
+                        ),
+                      );
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color.fromARGB(255, 34, 96, 255),
@@ -153,7 +154,7 @@ class _ToNewPasswordState extends State<ToNewPassword> {
                 ),
                 child: Text(
                   'Verify',
-                  style: GoogleFonts.poppins(
+                  style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
@@ -164,7 +165,7 @@ class _ToNewPasswordState extends State<ToNewPassword> {
             SizedBox(height: 20),
             Text(
               'Your password must have at least:',
-              style: GoogleFonts.poppins(
+              style: TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w600,
                 color: Colors.grey,
@@ -172,7 +173,7 @@ class _ToNewPasswordState extends State<ToNewPassword> {
             ),
             Text(
               '• 8 characters',
-              style: GoogleFonts.poppins(
+              style: TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w600,
                 color: Colors.grey,
@@ -180,7 +181,7 @@ class _ToNewPasswordState extends State<ToNewPassword> {
             ),
             Text(
               '• A letter and a number',
-              style: GoogleFonts.poppins(
+              style: TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w600,
                 color: Colors.grey,
@@ -188,7 +189,7 @@ class _ToNewPasswordState extends State<ToNewPassword> {
             ),
             Text(
               '• A special character (! @ # ...)',
-              style: GoogleFonts.poppins(
+              style: TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w600,
                 color: Colors.grey,

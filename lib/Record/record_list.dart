@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import '/Profile/profile.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:healthcare/Profile/profile.dart';
+import 'package:healthcare/Record/record_password.dart';
+import 'package:healthcare/Appointment/appointment_screen.dart';
 import 'package:healthcare/mainscreen/booking.dart';
 import 'package:healthcare/mainscreen/newfeed.dart';
-import 'record_password.dart';
 
 class RecodList extends StatelessWidget {
   const RecodList({super.key});
@@ -56,7 +58,7 @@ class _ToRecordListState extends State<ToRecordList> {
     }else if(index == 3){
       Navigator.pushAndRemoveUntil(
       context,
-      MaterialPageRoute(builder: (context) => RecordPassword()),
+      MaterialPageRoute(builder: (context) => PassRecord()),
       (route) => false, // This removes all previous routes
     );
     }else if (index == 4) { // Profile screen
@@ -77,7 +79,19 @@ class _ToRecordListState extends State<ToRecordList> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromARGB(255, 86, 118, 198),
-        
+        leading: Row(
+          children: [
+            IconButton(
+              icon: Icon(Icons.arrow_back, color: Colors.white),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const RecordOTP()),
+                );
+              },
+            ),
+          ],
+        ),
         title: Text(
           "Record",
           style: TextStyle(

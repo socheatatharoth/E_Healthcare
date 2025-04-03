@@ -5,9 +5,21 @@ import 'RegisterAccount/singup.dart';
 import 'ForgetPassword/forget_password.dart';
 import 'StartApp/GetStart.dart';
 import 'mainscreen/newfeed.dart';
+import 'RegisterAccount/singup.dart';
+import 'ForgetPassword/forget_password.dart';
+import 'StartApp/GetStart.dart';
+import 'RegisterAccount/signup_done.dart';
+import 'Appointment/appointment_screen.dart';
+import 'ForgetPassword/new_password.dart';
 
 void main() {
-  runApp(const MyApp());
+  // runApp(const MyApp());
+  // runApp(const RegisterScreen());
+  runApp(const ForgetPassword());
+  // runApp(const NewPassword());
+  // runApp(const GetStart());
+  // runApp(const RecordOTP());
+  // runApp(const AppointmentScreen());
 }
 
 class MyApp extends StatelessWidget {

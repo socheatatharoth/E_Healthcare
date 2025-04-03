@@ -1,9 +1,10 @@
 import 'package:healthcare/Record/record_list.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:healthcare/ForgetPassword/forget_password.dart';
 
-class RecordPassword extends StatelessWidget {
-  const RecordPassword({super.key});
+class RecordOTP extends StatelessWidget {
+  const RecordOTP({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -183,7 +184,14 @@ class _PassRecordState extends State<PassRecord> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 GestureDetector(
-                  onTap: () {},
+                  onTap:  () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ForgetPassword(),
+                      ),
+                    );
+                  },
                   child: Text(
                     "Forget Password",
                     style: TextStyle(

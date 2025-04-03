@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'record_password.dart';
+import 'package:healthcare/Record/record_password.dart';
+import 'package:healthcare/Appointment/appointment_screen.dart';
 
 class RecodList extends StatelessWidget {
   const RecodList({super.key});
@@ -36,9 +37,32 @@ class _ToRecordListState extends State<ToRecordList> {
   int _selectedIndex = 0; // Initial selected index
 
   void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+    if (index == _selectedIndex) return;
+
+    switch (index) {
+      case 0:
+        // Navigator.pushReplacement(
+        //     context, MaterialPageRoute(builder: (context) => HomeScreen()));
+        break;
+      case 1:
+        // Navigator.pushReplacement(
+        //     context, MaterialPageRoute(builder: (context) => BookingScreen()));
+        break;
+      case 2:
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => AppointmentScreen()),
+        );
+        break;
+      case 3:
+        // Navigator.pushReplacement(
+        //     context, MaterialPageRoute(builder: (context) => RecordScreen()));
+        break;
+      case 4:
+        // Navigator.pushReplacement(
+        //     context, MaterialPageRoute(builder: (context) => ProfileScreen()));
+        break;
+    }
   }
 
   @override
@@ -53,9 +77,7 @@ class _ToRecordListState extends State<ToRecordList> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                    builder: (context) => const RecordPassword(),
-                  ),
+                  MaterialPageRoute(builder: (context) => const RecordOTP()),
                 );
               },
             ),

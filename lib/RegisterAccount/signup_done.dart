@@ -29,8 +29,8 @@ class To_SignupDoneState extends State<PassSignup> {
           children: [
             Image.asset(
               'assets/images/E-HealthCare_logo.png',
-              width: 150,
-              height: 150,
+              width: 114,
+              height: 114,
             ),
             SizedBox(height: 20),
             Center(
@@ -45,17 +45,17 @@ class To_SignupDoneState extends State<PassSignup> {
                 textAlign:TextAlign.center, // Ensures the text is centered if it spans multiple lines
               ),
             ),
-
+            SizedBox(height: 20,),
             Column(
               children: [
                 Image.asset(
                   'assets/images/correct.png',
-                  width: 123,
-                  height: 123,
+                  width: 110,
+                  height: 110,
                 ),
               ],
             ),
-            SizedBox(height: 30),
+            SizedBox(height: 50),
             Container(
               // width: ,
               child: ElevatedButton(
@@ -66,7 +66,7 @@ class To_SignupDoneState extends State<PassSignup> {
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green,
+                  backgroundColor:  Color.fromARGB(255, 34, 96, 255),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
